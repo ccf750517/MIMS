@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>量測儀器管理系統 v0.1.32</title>
+<title>量測儀器管理系統 v0.1.34</title>
 <style>
 :root{
   --bg:#f4f6f8;--panel:#fff;--line:#d8dee6;--text:#17202a;--muted:#657180;
@@ -135,9 +135,9 @@ td.left{text-align:left} tr:hover td{background:#fafcff}
 #list .instrument-list-table th:nth-child(2),
 #list .instrument-list-table td:nth-child(2){width:7.5%}
 #list .instrument-list-table th:nth-child(3),
-#list .instrument-list-table td:nth-child(3){width:8.0%}
+#list .instrument-list-table td:nth-child(3){width:7.5%}
 #list .instrument-list-table th:nth-child(4),
-#list .instrument-list-table td:nth-child(4){width:8.5%}
+#list .instrument-list-table td:nth-child(4){width:8.0%}
 #list .instrument-list-table th:nth-child(5),
 #list .instrument-list-table td:nth-child(5){width:4.5%}
 #list .instrument-list-table th:nth-child(6),
@@ -147,9 +147,9 @@ td.left{text-align:left} tr:hover td{background:#fafcff}
 #list .instrument-list-table th:nth-child(8),
 #list .instrument-list-table td:nth-child(8){width:5.0%}
 #list .instrument-list-table th:nth-child(9),
-#list .instrument-list-table td:nth-child(9){width:6.5%}
+#list .instrument-list-table td:nth-child(9){width:6.0%}
 #list .instrument-list-table th:nth-child(10),
-#list .instrument-list-table td:nth-child(10){width:6.5%}
+#list .instrument-list-table td:nth-child(10){width:6.0%}
 #list .instrument-list-table th:nth-child(11),
 #list .instrument-list-table td:nth-child(11){width:5.0%}
 #list .instrument-list-table th:nth-child(12),
@@ -159,9 +159,9 @@ td.left{text-align:left} tr:hover td{background:#fafcff}
 #list .instrument-list-table th:nth-child(14),
 #list .instrument-list-table td:nth-child(14){width:6.0%}
 #list .instrument-list-table th:nth-child(15),
-#list .instrument-list-table td:nth-child(15){width:6.5%}
+#list .instrument-list-table td:nth-child(15){width:6.0%}
 #list .instrument-list-table th:nth-child(16),
-#list .instrument-list-table td:nth-child(16){width:5.0%}
+#list .instrument-list-table td:nth-child(16){width:7.5%}
 
 #list .instrument-list-table .mini-btn{
   padding:5px 6px;
@@ -867,6 +867,46 @@ nav button{
   .tol-value-add{
     flex-direction:column;
     align-items:stretch;
+  }
+}
+
+
+/* v0.1.33：1920×1080 / 100% 顯示時，操作欄完整顯示 */
+#list .instrument-list-table th:nth-child(16),
+#list .instrument-list-table td:nth-child(16){
+  overflow:visible !important;
+  text-overflow:clip !important;
+  white-space:nowrap !important;
+  padding-left:2px !important;
+  padding-right:2px !important;
+}
+#list .instrument-list-table td:nth-child(16) .mini-btn{
+  margin:0 1px !important;
+  padding:5px 5px !important;
+}
+@media (min-width:1351px) and (max-width:2100px){
+  #list .instrument-list-table th,
+  #list .instrument-list-table td{
+    padding-left:2px;
+    padding-right:2px;
+  }
+}
+
+
+/* v0.1.34：ISO 文件編號緊貼表格下方，避免列印被裁切 */
+.iso-docno{
+  top:271.6mm !important;
+  right:8.8mm !important;
+  bottom:auto !important;
+  font-size:9px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+@media print{
+  .iso-docno{
+    top:271.6mm !important;
+    right:8.8mm !important;
+    bottom:auto !important;
   }
 }
 
@@ -2849,7 +2889,7 @@ function printHistory(){
   document.body.classList.add('print-history'); window.print(); setTimeout(()=>document.body.classList.remove('print-history'),400);
 }
 function backupJson(){
-  const payload={app:'量測儀器管理系統',version:'0.1.32',exportedAt:new Date().toISOString(),instruments,usageUnits,brands,grades,precisions,cycles,locations,toleranceItems,toleranceValues};
+  const payload={app:'量測儀器管理系統',version:'0.1.34',exportedAt:new Date().toISOString(),instruments,usageUnits,brands,grades,precisions,cycles,locations,toleranceItems,toleranceValues};
   downloadBlob(`量測儀器管理系統備份_${fmtDate(new Date()).replaceAll('-','')}.json`,JSON.stringify(payload,null,2),'application/json;charset=utf-8');
 }
 function restoreJson(e){
